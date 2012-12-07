@@ -5,6 +5,7 @@
 
 package entities;
 
+import java.sql.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -23,4 +24,13 @@ public class Transaction extends Model{
     
     @ManyToOne
     private Item item;
+    
+    @ManyToOne
+    private Employee employee;
+    
+    @ManyToOne
+    private User user;
+    
+    private Date date;
+    
 }
