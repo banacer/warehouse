@@ -5,13 +5,11 @@
 
 package entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import java.util.List;
+import javax.persistence.*;
 
 @Entity
-
+@Table(uniqueConstraints= @UniqueConstraint(columnNames = {"productId", "serial"}))
 public class Item extends Model{
     
     @Id
@@ -24,6 +22,9 @@ public class Item extends Model{
     private String content;
     private String note;
     private String type;
+    
+    @OneToMany
+    private List<AuthorItem> authors;
     
     
     

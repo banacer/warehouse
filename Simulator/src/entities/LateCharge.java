@@ -6,10 +6,12 @@
 package entities;
 
 import java.sql.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -30,6 +32,9 @@ public class LateCharge extends Model{
     @ManyToOne
     private Item item;
     
+    @OneToMany
+    private List<LateChargePayment> payments;
+    
     private Date lateChargeDate;
     
     private double amount;
@@ -37,6 +42,9 @@ public class LateCharge extends Model{
     private double paid;
     
     private boolean closed;
+
+    public LateCharge() {
+    }
 
     public LateCharge(User user, Employee employee, Item item, Date lateChargeDate, double amount, double paid) {
         this.user = user;
@@ -50,6 +58,19 @@ public class LateCharge extends Model{
             closed = false;
         else
             closed = true;
+    }
+    
+    public boolean addPayment(double amount)
+    {
+        if((this.amount + amount) <= paid)
+        {
+            this.amount += amount;
+            this.update();
+            this.refresh();
+            return true;
+        }
+        else
+            return false;
     }
     
     
